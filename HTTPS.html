@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSJOSMA Orphanage - St. Michel de l'Attalaye, Haiti</title>
+    
+    <!-- HTTPS Security & Deployment Optimization Headers -->
+    <!-- Forces the browser to upgrade any accidental HTTP asset links to HTTPS -->
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <!-- Protects user referrer privacy when navigating over HTTPS -->
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <style>
+        :root {
+            --primary-color: #0d3b66;
+            --secondary-color: #f4d35e;
+            --text-color: #333333;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--white);
+        }
+
+        /* Language Switcher */
+        .lang-switcher {
+            background-color: var(--primary-color);
+            padding: 8px 20px;
+            text-align: right;
+        }
+
+        .lang-switcher button {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            margin-left: 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .lang-switcher button:hover, 
+        .lang-switcher button.active {
+            color: var(--white);
+            text-decoration: underline;
+        }
+
+        /* Navigation */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 80px;
+            background-color: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+        nav li {
+            margin-left: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .btn-donate {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: transform 0.2s, background-color 0.3s;
+        }
+
+        .btn-donate:hover {
+            transform: translateY(-2px);
+            background-color: #eed04b;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(13, 59, 102, 0.85), rgba(13, 59, 102, 0.85)), url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070') no-repeat center center/cover;
+            color: var(--white);
+            padding: 120px 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        /* Sections General */
+        section {
+            padding: 80px 80px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            margin: 15px auto 0;
+        }
+
+        /* About Section */
+        .about-container {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .quote-box {
+            background-color: var(--bg-light);
+            border-left: 5px solid var(--primary-color);
+            padding: 20px;
+            margin-top: 30px;
+            font-style: italic;
+        }
+
+        /* Team Grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .team-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .team-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .team-role {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        /* Pillars Section */
+        .pillars {
+            background-color: var(--bg-light);
+        }
+
+        .pillars-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .pillar-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+
+        .pillar-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        /* Network Section */
+        .network {
+            text-align: center;
+        }
+
+        .network p {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            font-size: 1.1rem;
+        }
+
+        .countries {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .countries span {
+            background: var(--bg-light);
+            padding: 10px 25px;
+            border-radius: 5px;
+        }
+
+        /* Call to Action */
+        .cta {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .cta h2 {
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #082542;
+            color: var(--white);
+            padding: 60px 80px 20px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-col h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-col p {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            color: #ccc;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #11385c;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            header { padding: 20px 40px; }
+            section { padding: 60px 40px; }
+            .about-container { flex-direction: column; }
+            .hero h1 { font-size: 2.3rem; }
+            footer { padding: 40px 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Language Switcher Bar -->
+    <div class="lang-switcher">
+        <button onclick="switchLang('en')" id="btn-en" class="active">English</button>
+        <button onclick="switchLang('fr')" id="btn-fr">Français</button>
+        <button onclick="switchLang('es')" id="btn-es">Español</button>
+    </div>
+
+    <!-- Navigation Header -->
+    <header>
+        <a href="#" class="logo">OSJOSMA</a>
+        <nav>
+            <ul>
+                <li><a href="#about" id="nav-about">About Us</a></li>
+                <li><a href="#pillars" id="nav-impact">Our Impact</a></li>
+                <li><a href="#network" id="nav-network">Global Network</a></li>
+                <li><a href="#donate" class="btn-donate" id="nav-donate">Donate</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 id="hero-title">Nurturing Hope, Educating Futures in Haiti</h1>
+        <p id="hero-desc">OSJOSMA provides comprehensive care, nutrition, education, and community stability for vulnerable children in St. Michel de l'Attalaye. Together, we can build sustainable futures.</p>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title" id="about-title">About OSJOSMA</h2>
+        <div class="about-container">
+            <div class="about-text">
+                <p id="about-p1">Founded in 2006 by Oles Andre Etienne and Vandueren Frans, OSJOSMA was established to bridge critical systemic gaps facing orphaned and vulnerable children in Saint-Michel de l'Attalaye. Over two decades, the initiative has transitioned from a localized sanctuary into an organized structural framework integrating primary education and community infrastructure support.</p>
+                
+                <div class="quote-box">
+                    <p id="about-quote">"Every child deserves a safe haven, steady nourishment, and the powerful tool of education. Operating from our main home on Rue Calvaire, we serve as a beacon of hope."</p>
+                    <small style="display:block; margin-top:10px; font-weight:bold; color:var(--primary-color);">— Oles Andre Etienne, CEO</small>
+                </div>
+
+                <!-- Leadership Team Grid -->
+                <div class="team-grid">
+                    <div class="team-card">
+                        <h4>Oles Andre Etienne</h4>
+                        <p class="team-role">CEO & Founder (Ex-Mayor)</p>
+                        <p class="team-role" style="font-style: italic;">PDG & Fondateur (Ex-Maire)</p>
+                        <p class="team-role" style="font-style: italic; color: #888;">Director Ejecutivo y Fundador (Ex-Alcalde)</p>
+                    </div>
+                    <div class="team-card">
+                        <h4>Vandueren Frans</h4>
+                        <p class="team-role">Co-Founder (Belgian Member)</p>
+                        <p class="team-role" style="font-style: italic;">Co-Fondateur (Membre Belge)</p>
+                        <p class="team-role" style="font-style: italic; color: #888;">Cofundador (Miembro Belga)</p>
+                    </div>
+                    <div class="team-card">
+                        <h4>William Etienne</h4>
+                        <p class="team-role">Administrator</p>
+                        <p class="team-role" style="font-style: italic;">Administrateur</p>
+                        <p class="team-role" style="font-style: italic; color: #888;">Administrador</p>
+                    </div>
+                    <div class="team-card">
+                        <h4>Jeanbosco Joseph</h4>
+                        <p class="team-role">Counsellor</p>
+                        <p class="team-role" style="font-style: italic;">Conseiller</p>
+                        <p class="team-role" style="font-style: italic; color: #888;">Consejero</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Pillars Section -->
+    <section id="pillars" class="pillars">
+        <h2 class="section-title" id="pillars-title">Our Core Pillars</h2>
+        <div class="pillars-container">
+            <div class="pillar-card">
+                <h3 id="pillar1-title">1. Food Security</h3>
+                <p id="pillar1-desc">Providing structured daily nutritional programs to eradicate childhood hunger and ensure healthy physical growth for all residents.</p>
+            </div>
+            <div class="pillar-card">
+                <h3 id="pillar2-title">2. Quality Education</h3>
+                <p id="pillar2-desc">Supplying continuous primary schooling, books, educational materials, and skilled teaching staff to break cycles of poverty.</p>
+            </div>
+            <div class="pillar-card">
+                <h3 id="pillar3-title">3. Community Development</h3>
+                <p id="pillar3-desc">Investing in clean water access, sustainable sanitation, and structural resilience surrounding Rue Calvaire.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- International Network Section -->
+    <section id="network" class="network">
+        <h2 class="section-title" id="network-title">Our International Network</h2>
+        <p id="network-desc">OSJOSMA thrives due to its expansive international operational network. We connect local Haitian execution with supportive members across five key areas:</p>
+        <div class="countries">
+            <span id="country-us">United States</span>
+            <span id="country-ca">Canada</span>
+            <span id="country-fr">France</span>
+            <span id="country-br">Brazil</span>
+            <span id="country-cl">Chile</span>
+        </div>
+    </section>
+
+    <!-- Call to Action / Support Section -->
+    <section id="donate" class="cta">
+        <h2 id="cta-title">Support Our Mission</h2>
+        <p id="cta-desc">We openly welcome structural gifts, sponsorships, and financial donations. Your support explicitly funds purchasing localized agricultural crops, educational materials, and teacher salaries.</p>
+        <a href="#" class="btn-donate" id="cta-btn">Make a Secure Donation</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3 id="footer-office-title">MAIN OFFICE / SIÈGE</h3>
+                <p><strong>OSJOSMA Orphanage</strong></p>
+                <p>Rue Calvaire, St. Michel de l'Attalaye</p>
+                <p>Arrondissement de Marmelade, Haiti</p>
+            </div>
+            <div class="footer-col">
+                <h3 id="footer-team-title">LEADERSHIP TEAM</h3>
+                <p>CEO: Oles Andre Etienne</p>
+                <p>Co-Founder: Vandueren Frans</p>
+                <p>Admin: William Etienne</p>
+            </div>
+            <div class="footer-col">
+                <h3 id="footer-global-title">GLOBAL SUPPORT</h3>
+                <p id="footer-global-list">US • Canada • France • Brasil • Chile</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p id="footer-copy">&copy; 2026 OSJOSMA. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Translation Script -->
+    <script>
+        const translations = {
+            en: {
+                "nav-about": "About Us", "nav-impact": "Our Impact", "nav-network": "Global Network", "nav-donate": "Donate",
+                "hero-title": "Nurturing Hope, Educating Futures in Haiti",
+                "hero-desc": "OSJOSMA provides comprehensive care, nutrition, education, and community stability for vulnerable children in St. Michel de l'Attalaye. Together, we can build sustainable futures.",
+                "about-title": "About OSJOSMA",
+                "about-p1": "Founded in 2006 by Oles Andre Etienne and Vandueren Frans, OSJOSMA was established to bridge critical systemic gaps facing orphaned and vulnerable children in Saint-Michel de l'Attalaye. Over two decades, the initiative has transitioned from a localized sanctuary into an organized structural framework integrating primary education and community infrastructure support.",
+                "about-quote": '"Every child deserves a safe haven, steady nourishment, and the powerful tool of education. Operating from our main home on Rue Calvaire, we serve as a beacon of hope."',
+                "pillars-title": "Our Core Pillars",
+                "pillar1-title": "1. Food Security", "pillar1-desc": "Providing structured daily nutritional programs to eradicate childhood hunger and ensure healthy physical growth for all residents.",
+                "pillar2-title": "2. Quality Education", "pillar2-desc": "Supplying continuous primary schooling, books, educational materials, and skilled teaching staff to break cycles of poverty.",
+                "pillar3-title": "3. Community Development", "pillar3-desc": "Investing in clean water access, sustainable sanitation, and structural resilience surrounding Rue Calvaire.",
+                "network-title": "Our International Network",
+                "network-desc": "OSJOSMA thrives due to its expansive international operational network. We connect local Haitian execution with supportive members across five key areas:",
+                "country-us": "United States", "country-ca": "Canada", "country-fr": "France", "country-br": "Brazil", "country-cl": "Chile",
+                "cta-title": "Support Our Mission",
+                "cta-desc": "We openly welcome structural gifts, sponsorships, and financial donations. Your support explicitly funds purchasing localized agricultural crops, educational materials, and teacher salaries.",
+                "cta-btn": "Make a Secure Donation",
+                "footer-office-title": "MAIN OFFICE / SIÈGE", "footer-team-title": "LEADERSHIP TEAM", "footer-global-title": "GLOBAL SUPPORT",
+                "footer-global-list": "US • Canada • France • Brasil • Chile", "footer-copy": "&copy; 2026 OSJOSMA. All Rights Reserved."
+            },
+            fr: {
+                "nav-about": "À Propos", "nav-impact": "Notre Impact", "nav-network": "Réseau Global", "nav-donate": "Faire un Don",
+                "hero-title": "Nourrir l'Espoir, Éduquer l'Avenir en Haïti",
+                "hero-desc": "L'OSJOSMA offre une prise en charge complète, une nutrition, une éducation et une stabilité communautaire aux enfants vulnérables de St. Michel de l'Attalaye. Ensemble, construisons un avenir durable.",
+                "about-title": "À Propos de l'OSJOSMA",
+                "about-p1": "Fondée en 2006 par Oles Andre Etienne et Vandueren Frans, l'OSJOSMA a été créée pour combler les lacunes systémiques cruciales auxquelles font face les orphelins et les enfants vulnérables de Saint-Michel de l'Attalaye. En deux décennies, l'initiative est passée d'un sanctuaire localisé à un cadre structurel organisé intégrant l'enseignement primaire et le soutien aux infrastructures communautaires.",
+                "about-quote": '"Chaque enfant mérite un refuge sûr, une alimentation régulière et le puissant outil de l\'éducation. Depuis notre maison principale de la Rue Calvaire, nous agissons comme un phare d\'espoir."',
+                "pillars-title": "Nos Piliers Fondamentaux",
+                "pillar1-title": "1. Sécurité Alimentaire", "pillar1-desc": "Fournir des programmes nutritionnels quotidiens structurés pour éradiquer la faim chez les enfants et assurer une croissance physique saine pour tous.",
+                "pillar2-title": "2. Éducation de Qualité", "pillar2-desc": "Assurer une scolarité primaire continue, fournir des livres, du matériel pédagogique et un personnel enseignant qualifié pour briser le cycle de la pauvreté.",
+                "pillar3-title": "3. Développement Communautaire", "pillar3-desc": "Investir dans l'accès à l'eau potable, l'assainissement durable et la résilience structurelle aux alentours de la Rue Calvaire.",
+                "network-title": "Notre Réseau International",
+                "network-desc": "L'OSJOSMA prospère grâce à son vaste réseau opérationnel international. Nous relions l'exécution locale en Haïti avec des membres de soutien dans cinq régions clés :",
+                "country-us": "États-Unis", "country-ca": "Canada", "country-fr": "France", "country-br": "Brésil", "country-cl": "Chili",
+                "cta-title": "Soutenez Notre Mission",
+                "cta-desc": "Nous accueillons ouvertement les dons structurels, les parrainages et les contributions financières. Votre soutien finance explicitement l'achat de cultures agricoles locales, de matériel pédagogique et les salaires des enseignants.",
+                "cta-btn": "Faire un Don Sécurisé",
+                "footer-office-title": "SIÈGE CENTRAL", "footer-team-title": "ÉQUIPE DE DIRECTION", "footer-global-title": "SOUTIEN GLOBAL",
+                "footer-global-list": "États-Unis • Canada • France • Brésil • Chili", "footer-copy": "&copy; 2026 OSJOSMA. Tous droits réservés."
+            },
+            es: {
+                "nav-about": "Nosotros", "nav-impact": "Nuestro Impacto", "nav-network": "Red Global", "nav-donate": "Donar",
+                "hero-title": "Fomentando la Esperanza, Educando el Futuro en Haití",
+                "hero-desc": "OSJOSMA brinda atención integral, nutrición, educación y estabilidad comunitaria para niños vulnerables en St. Michel de l'Attalaye. Juntos podemos construir un futuro sostenible.",
+                "about-title": "Sobre OSJOSMA",
+                "about-p1": "Fundada en 2006 por Oles Andre Etienne y Vandueren Frans, OSJOSMA se estableció para cerrar las brechas sistémicas críticas que enfrentan los niños huérfanos y vulnerables en Saint-Michel de l'Attalaye. A lo largo de dos décadas, la iniciativa ha pasado de ser un santuario local a un marco estructural organizado que integra la educación primaria y el apoyo a la infraestructura comunitaria.",
+                "about-quote": '"Cada niño merece un refugio seguro, alimentación constante y la poderosa herramienta de la educación. Operando desde nuestro hogar principal en Rue Calvaire, servimos como un faro de esperanza."',
+                "pillars-title": "Nuestros Pilares Fundamentales",
+                "pillar1-title": "1. Seguridad Alimentaria", "pillar1-desc": "Proporcionar programas nutricionales diarios estructurados para erradicar el hambre infantil y garantizar un crecimiento físico saludable para todos los residentes.",
+                "pillar2-title": "2. Educación de Calidad", "pillar2-desc": "Suministrar escolaridad primaria continua, libros, materiales educativos y personal docente capacitado para romper los ciclos de pobreza.",
+                "pillar3-title": "3. Desarrollo Comunitario", "pillar3-desc": "Invertir en el acceso a agua limpia, saneamiento sostenible y resiliencia estructural en los alrededores de Rue Calvaire.",
+                "network-title": "Nuestra Red Internacional",
+                "network-desc": "OSJOSMA prospera gracias a su amplia red operativa internacional. Conectamos la ejecución local haitiana con miembros de apoyo en cinco áreas clave:",
+                "country-us": "Estados Unidos", "country-ca": "Canadá", "country-fr": "Francia", "country-br": "Brasil", "country-cl": "Chile",
+                "cta-title": "Apoya Nuestra Misión",
+                "cta-desc": "Aceptamos abiertamente donaciones estructurales, patrocinios y contribuciones financieras. Su apoyo financia explícitamente la compra de cultivos agrícolas locales, materiales educativos y salarios de los profesores.",
+                "cta-btn": "Hacer una Donación Segura",
+                "footer-office-title": "OFICINA PRINCIPAL", "footer-team-title": "EQUIPO DIRECTIVO", "footer-global-title": "APOYO GLOBAL",
+                "footer-global-list": "EE.UU. • Canadá • Francia • Brasil • Chile", "footer-copy": "&copy; 2026 OSJOSMA. Todos los derechos reservados."
+            }
+        };
+
+        function switchLang(lang) {
+            // Update active state button visual styling
+            document.querySelectorAll('.lang-switcher button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-${lang}`).classList.add('active');
+            
+            // Loop and swap text elements
+            for (let id in translations[lang]) {
+                const element = document.getElementById(id);
+                if (element) {
+                    if (id === 'footer-copy') {
+                        element.innerHTML = translations[lang][id];
+                    } else {
+                        element.innerText = translations[lang][id];
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
